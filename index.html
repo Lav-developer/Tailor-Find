@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TailorFind</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo">TailorFind</div>
+      <nav>
+        <ul>
+          <li><a href="#" onclick="showSection('home')">Home</a></li>
+          <li><a href="#" onclick="showSection('search')">Find Tailors</a></li>
+          <li><a href="#" onclick="showSection('services')">Services</a></li>
+          <li><a href="#" onclick="showSection('about')">About</a></li>
+          <li><a href="#" onclick="showSection('register')">Join as Tailor</a></li>
+          <li id="dashboard-link"><a href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+          <li id="login-link"><a href="#" onclick="showLoginModal()">Login</a></li>
+          <li id="logout-link"><a href="#" onclick="logout()">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="section active">
+      <div class="hero">
+        <div class="container">
+          <h1>Find Your Perfect Tailor</h1>
+          <p>Connect with skilled professionals for custom clothing, alterations, and repairs</p>
+          <button class="btn" onclick="showSection('search')">Find Tailors Now</button>
+          <button class="btn btn-secondary" onclick="showSection('register')">Join as Tailor</button>
+        </div>
+      </div>
+
+      <div class="container">
+        <h2>Why Choose TailorFind?</h2>
+        <div class="tailor-grid">
+          <div class="tailor-card">
+            <h3>Verified Professionals</h3>
+            <p>All tailors are verified with ratings and reviews from real customers</p>
+          </div>
+          <div class="tailor-card">
+            <h3>Quick Booking</h3>
+            <p>Book appointments instantly with available tailors in your area</p>
+          </div>
+          <div class="tailor-card">
+            <h3>Secure Payments</h3>
+            <p>Safe and secure payment processing with multiple options</p>
+          </div>
+          <div class="tailor-card">
+            <h3>Quality Guarantee</h3>
+            <p>100% satisfaction guarantee on all tailoring services</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <h2>Popular Services</h2>
+        <div class="tailor-grid">
+          <div class="tailor-card">
+            <h3>Custom Suits</h3>
+            <p>Professional tailored suits for business and special occasions</p>
+          </div>
+          <div class="tailor-card">
+            <h3>Alterations</h3>
+            <p>Perfect fit adjustments for all types of clothing</p>
+          </div>
+          <div class="tailor-card">
+            <h3>Traditional Wear</h3>
+            <p>Custom ethnic and traditional clothing with authentic designs</p>
+          </div>
+          <div class="tailor-card">
+            <h3>Repairs</h3>
+            <p>Expert clothing repairs and restoration services</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <h2>What Our Customers Say</h2>
+        <div class="tailor-grid">
+          <div class="tailor-card">
+            <p>"Amazing service! Found the perfect tailor for my wedding suit. Highly recommended!"</p>
+            <p><strong>Rajesh Kumar, Mumbai</strong></p>
+          </div>
+          <div class="tailor-card">
+            <p>"Quick and professional service. My saree alterations were done perfectly!"</p>
+            <p><strong>Priya Sharma, Delhi</strong></p>
+          </div>
+          <div class="tailor-card">
+            <p>"Great platform to find skilled tailors. Easy booking and excellent results!"</p>
+            <p><strong>Amit Patel, Bangalore</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="search" class="section">
+      <div class="container">
+        <h2>Find Your Perfect Tailor</h2>
+        <p>Search by location, specialty, or tailor name</p>
+        <div class="search-bar">
+          <input type="text" id="search-input" placeholder="Search tailors...">
+          <select id="specialty-filter">
+            <option value="">All Specialties</option>
+            <option value="Custom Suits">Custom Suits</option>
+            <option value="Alterations">Alterations</option>
+            <option value="Traditional Wear">Traditional Wear</option>
+            <option value="Formal Wear">Formal Wear</option>
+            <option value="Casual Wear">Casual Wear</option>
+            <option value="Repairs">Repairs</option>
+          </select>
+          <select id="location-filter">
+            <option value="">All Locations</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Bangalore">Bangalore</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Kolkata">Kolkata</option>
+          </select>
+          <select id="rating-filter">
+            <option value="">All Ratings</option>
+            <option value="4">4+ Stars</option>
+            <option value="3">3+ Stars</option>
+            <option value="2">2+ Stars</option>
+          </select>
+          <select id="price-filter">
+            <option value="">All Prices</option>
+            <option value="budget">Budget (₹500-1500)</option>
+            <option value="midrange">Mid-range (₹1500-3000)</option>
+            <option value="premium">Premium (₹3000+)</option>
+          </select>
+          <button class="btn search-btn" onclick="searchTailors()">Search</button>
+        </div>
+        <div class="tailor-grid" id="tailor-grid"></div>
+      </div>
+    </section>
+
+    <section id="services" class="section">
+      <div class="container">
+        <h2>Our Services</h2>
+        <p>Comprehensive tailoring solutions for all your needs</p>
+        <div class="tailor-grid">
+          <div class="tailor-card">
+            <h3>Custom Tailoring</h3>
+            <p><strong>Men's Suits</strong><br>Professional suits, blazers, and formal wear<br>₹3000 - ₹15000</p>
+            <p><strong>Women's Wear</strong><br>Dresses, blouses, and professional attire<br>₹2000 - ₹10000</p>
+            <p><strong>Wedding Attire</strong><br>Special occasion and bridal wear<br>₹5000 - ₹25000</p>
+          </div>
+          <div class="tailor-card">
+            <h3>Alterations & Repairs</h3>
+            <p><strong>Hemming</strong><br>Pants, skirts, and dress hemming<br>₹200 - ₹800</p>
+            <p><strong>Resizing</strong><br>Taking in or letting out garments<br>₹500 - ₹2000</p>
+            <p><strong>Repairs</strong><br>Fixing tears, replacing zippers and buttons<br>₹100 - ₹1000</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <h2>About TailorFind</h2>
+        <p>TailorFind is India's premier platform connecting customers with skilled tailors and fashion professionals. We believe everyone deserves perfectly fitting clothes that make them look and feel their best.</p>
+        <div class="tailor-grid">
+          <div class="tailor-card">
+            <h3>Quality Assurance</h3>
+            <p>Every tailor undergoes verification and quality checks</p>
+          </div>
+          <div class="tailor-card">
+            <h3>Community Driven</h3>
+            <p>Built by tailors, for customers who value craftsmanship</p>
+          </div>
+          <div class="tailor-card">
+            <h3>Customer First</h3>
+            <p>Your satisfaction is our top priority</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="register" class="section">
+      <div class="container">
+        <div class="register-form">
+          <h2>Join TailorFind as a Professional</h2>
+          <p>Grow your tailoring business with our platform</p>
+          <form id="register-form">
+            <div class="form-group">
+              <label for="reg-name">Full Name</label>
+              <input type="text" id="reg-name" required>
+              <span class="error" id="reg-name-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="reg-email">Email</label>
+              <input type="email" id="reg-email" required>
+              <span class="error" id="reg-email-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="reg-password">Password</label>
+              <input type="password" id="reg-password" required>
+              <span class="error" id="reg-password-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="reg-mobile">Mobile Number</label>
+              <input type="tel" id="reg-mobile" required>
+              <span class="error" id="reg-mobile-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="reg-address">Address</label>
+              <textarea id="reg-address" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="reg-specialties">Specialties (comma-separated)</label>
+              <input type="text" id="reg-specialties" required>
+            </div>
+            <div class="form-group">
+              <label for="reg-experience">Years of Experience</label>
+              <input type="number" id="reg-experience" required>
+            </div>
+            <button type="submit" class="btn">Register as Tailor</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="section">
+      <div class="container">
+        <h2>Tailor Dashboard</h2>
+        <div class="tabs">
+          <button class="tab active" onclick="showTab('profile')">Profile</button>
+          <button class="tab" onclick="showTab('bookings')">Bookings</button>
+          <button class="tab" onclick="showTab('portfolio')">Portfolio</button>
+          <button class="tab" onclick="showTab('reviews')">Reviews</button>
+          <button class="tab" onclick="showTab('analytics')">Analytics</button>
+        </div>
+        <div id="profile-tab" class="tab-content">
+          <form id="profile-form">
+            <div class="form-group">
+              <label for="profile-name">Full Name</label>
+              <input type="text" id="profile-name">
+            </div>
+            <div class="form-group">
+              <label for="profile-mobile">Mobile Number</label>
+              <input type="tel" id="profile-mobile">
+            </div>
+            <div class="form-group">
+              <label for="profile-address">Address</label>
+              <textarea id="profile-address"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="profile-specialties">Specialties (comma-separated)</label>
+              <input type="text" id="profile-specialties">
+            </div>
+            <div class="form-group">
+              <label for="profile-availability">Available for bookings</label>
+              <input type="checkbox" id="profile-availability">
+            </div>
+            <button type="submit" class="btn">Save Changes</button>
+          </form>
+        </div>
+        <div id="bookings-tab" class="tab-content">
+          <div id="bookings-list"></div>
+        </div>
+        <div id="portfolio-tab" class="tab-content">
+          <div class="form-group">
+            <label for="portfolio-image">Upload Portfolio Image</label>
+            <input type="file" id="portfolio-image" accept="image/*">
+            <input type="text" id="portfolio-title" placeholder="Portfolio Item Title">
+            <button class="btn" onclick="addPortfolioItem()">Add Portfolio Item</button>
+          </div>
+          <div id="portfolio-list" class="tailor-grid"></div>
+        </div>
+        <div id="reviews-tab" class="tab-content">
+          <div id="reviews-list"></div>
+        </div>
+        <div id="analytics-tab" class="tab-content">
+          <div class="analytics-card">
+            <h3>Total Bookings</h3>
+            <p id="total-bookings">0</p>
+          </div>
+          <div class="analytics-card">
+            <h3>Completed Jobs</h3>
+            <p id="completed-bookings">0</p>
+          </div>
+          <div class="analytics-card">
+            <h3>Total Revenue</h3>
+            <p id="total-revenue">₹0</p>
+          </div>
+          <div class="analytics-card">
+            <h3>Bookings Trend</h3>
+            <canvas id="bookings-chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="booking-modal" class="modal">
+      <div class="modal-content">
+        <h2>Book a Tailor</h2>
+        <form id="booking-form">
+          <div class="form-group">
+            <label for="booking-name">Your Name</label>
+            <input type="text" id="booking-name" required>
+            <span class="error" id="booking-name-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="booking-email">Your Email</label>
+            <input type="email" id="booking-email" required>
+            <span class="error" id="booking-email-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="booking-mobile">Your Mobile</label>
+            <input type="tel" id="booking-mobile" required>
+            <span class="error" id="booking-mobile-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="booking-service">Service Type</label>
+            <select id="booking-service" required></select>
+          </div>
+          <div class="form-group">
+            <label for="booking-date">Preferred Date</label>
+            <input type="date" id="booking-date" required>
+          </div>
+          <div class="form-group">
+            <label for="booking-description">Description</label>
+            <textarea id="booking-description"></textarea>
+          </div>
+          <button type="submit" class="btn">Submit Booking</button>
+          <button type="button" class="btn btn-secondary" onclick="closeModal('booking-modal')">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="login-modal" class="modal">
+      <div class="modal-content">
+        <h2>Login to TailorFind</h2>
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" required>
+            <span class="error" id="login-email-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required>
+            <span class="error" id="login-password-error"></span>
+          </div>
+          <button type="submit" class="btn">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="review-modal" class="modal">
+      <div class="modal-content">
+        <h2>Submit Review</h2>
+        <form id="review-form">
+          <div class="form-group">
+            <label for="review-rating">Rating</label>
+            <select id="review-rating" required>
+              <option value="5">5 Stars</option>
+              <option value="4">4 Stars</option>
+              <option value="3">3 Stars</option>
+              <option value="2">2 Stars</option>
+              <option value="1">1 Star</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="review-comment">Comment</label>
+            <textarea id="review-comment" required></textarea>
+          </div>
+          <button type="submit" class="btn">Submit Review</button>
+          <button type="button" class="btn btn-secondary" onclick="closeModal('review-modal')">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <h3>TailorFind</h3>
+      <p>Your Perfect Fit Awaits</p>
+      <p id="current-date-time"></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9562a05a9e7f8ad5',t:'MTc1MTAwMzAwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
